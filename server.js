@@ -9,23 +9,13 @@ var morgan = require('morgan');
 var passport = require('passport');
 var path = require('path');
 var logger = require('./public/js/logger');
-// var db = require("./database");
 var app = express();
-
-// setting up passport configurations, passing in the passport object
-// require('./passport')(passport);
 
 // setting up the Express application object
 app
     .use(bodyParser.json()) // Parses the incoming requests text as JSON and exposes the resulting object on req.body.
     .use(cookieParser()) // read cookies (needed for auth)
     .use(morgan('dev')) // log every request to the console
-
-    // setup required for passport authentication
-    // .use(session({secret: 'topsecret'}))
-    // .use(passport.initialize())
-    // .use(passport.session()) // persistent login sessions
-
 
     .use(express.static('../public')) // expose all files under '../public' statically, so they can all be accessed through the proper URL
     .use('/vendor', express.static(__dirname + '/node_modules')) // replace the '../node_modules' exposed route with '/vendor'
@@ -43,25 +33,4 @@ app
         console.log(error.stack);
     });
 
-// // handles various scenarios and limits user access to routes based on whether logged in or not
-// // -> if logged in --> if trying to access login / register page, redirect to survey
-// //                 --> else, do nothing
-// // -> if not logged in --> if trying to access anything other than login / register / static file, then redirect to login
-// //                     --> else, do nothing
-// function checkLoggedIn(req, res, next) {
-//     var requestUrl = req.url.toString();
-//     var reqUrlForLoggedIn =
-//         requestUrl.indexOf('login') == -1 &&
-//         requestUrl.indexOf('register') == -1;
-//
-//     if (req.isAuthenticated() && reqUrlForLoggedIn)
-//         return next();
-//     else if (!req.isAuthenticated() && reqUrlForLoggedIn) // if user accessing URL for which he should be logged in (any other than login/ register
-//         res.redirect('/login');
-//     else if (req.isAuthenticated() && !reqUrlForLoggedIn) // if user is authenticated and tries to access login / register url
-//         res.redirect('/survey');
-//     else next();
-// }
-
-// db.setup();
 app.listen(8080);
