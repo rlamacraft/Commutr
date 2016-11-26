@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <title>Commute Calculator</title>
+
+  <!-- Bootstrap Core CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
+
+  <!-- CSS File -->
+  <link href="css/index.css" rel="stylesheet" type="text/css">
+
+</head>
+
+<body>
+  <div class="banner">
+    <div class="banner-title">Commute Calculator</div>
+  </div>
+
+  <div class="wrapper">
+
+    <div class="info-wrapper">
+
+      <div class="info-header">
+        Housemate Info
+      </div>
+
+      <div id="housemate-info" class="housemate-info">
+
+        <div id="housemate-form" class="housemate-form">
+          <div id="housemate-entry-1" class="form-group housemate-entry">
+            <label for="housemates-1">Housemate 1</label>
+
+            <div class="input-group">
+              <span class="input-group-addon" id="basic-addon1">Commute To...</span>
+              <input type="text" class="form-control" placeholder="Postcode" aria-describedby="basic-addon1">
+            </div>
+          </div>
+
+          <div id="housemate-entry-2" class="form-group housemate-entry">
+            <label for="housemates-2">Housemate 2</label>
+
+            <div class="input-group">
+              <span class="input-group-addon" id="basic-addon1">Commute To...</span>
+              <input type="text" class="form-control" placeholder="Postcode" aria-describedby="basic-addon1">
+            </div>
+          </div>
+        </div>
+
+        <button id="housemate-add" class="btn btn-secondary" type="button">Add Housemate</button>
+        <button id="housemate-remove" class="btn btn-secondary" type="button">Remove Housemate</button>
+
+      </div>
+    </div>
+    <div class="info-wrapper">
+
+      <div class="info-header">
+        Property Info
+      </div>
+
+      <div id="property-info" class="property-info">
+
+        <div id="budget-entry" class="form-group">
+          <label for="budget">What is your maximum budget?</label>
+
+          <div class="input-group">
+            <span class="input-group-addon">£</span>
+            <input type="text" class="form-control" aria-label="Budget Per Person p/m">
+            <span class="input-group-addon">Per Person Per Month</span>
+          </div>
+        </div>
+
+        <div id="commute-time-entry" class="form-group">
+          <label for="commute-time">What is your maximum commute?</label>
+
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Max Commute" aria-describedby="basic-addon2">
+            <span class="input-group-addon" id="basic-addon2">mins each way</span>
+          </div>
+        </div>
+
+        <button id="find-place" type="button" class="btn btn-danger btn-find-place" disabled>Where should we live?</button>
+
+      </div>
+    </div>
+
+  </div>
+  <!-- jQuery Version 1.12.2 -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+
+  <!-- Javascript File -->
+  <script src="js/index.js"></script>
+
+  <!-- Bootstrap Core JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js" integrity="sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK" crossorigin="anonymous"></script>
+</body>
+
+</html>

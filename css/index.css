@@ -1,0 +1,57 @@
+body{
+  background-color: #e74c3c;
+}
+
+/* Top Banner CSS */
+.banner{
+  background-color: #c0392b;
+  height: 56px;
+  padding: 8px 16px;
+}
+
+.banner-title{
+  float:left;
+  background-color: #912c21;
+  color:white;
+  font-size: 20px;
+  border-radius: 7.5px;
+  padding: 5px 10px;
+}
+/********/
+
+/* Internal Wrapper CSS */
+.wrapper{
+  float:left;
+  width: 100%;
+  padding: 50px 15% 0 15%;
+}
+/********/
+
+/* CSS for the info section in the middle of the window */
+.info-wrapper{
+  float: inherit;;
+  margin: 0 5%;
+  width: 40%;
+}
+
+.info-header{
+  background-color: #c0392b;
+  color:white;
+  font-size: 17.5px;
+  padding: 7.5px 15px;
+  border-radius: 7.5px 7.5px 0 0;
+}
+
+.housemate-info, .property-info{
+  float: inherit;
+  background-color: white;
+  padding: 15px;
+  border-radius: 0 0 7.5px 7.5px;
+}
+
+.btn-find-place{
+  float: right;
+  margin: 10px 0 0 0;
+  padding: 15px;
+}
+/********/
