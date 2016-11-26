@@ -21,6 +21,7 @@ app
     .use('/vendor', express.static(__dirname + '/node_modules')) // replace the '../node_modules' exposed route with '/vendor'
     .use('/scripts', express.static(__dirname + '/public/js')) // replase the '../public/js' exposed route with '/scripts'
     .use('/views', express.static(__dirname + '/public/views'))
+    .use('/css', express.static(__dirname + '/public/css'))
 
     // route that sends the index.html file for any other URL not corresponding to the ones defined above
     .get('*', function (req, res) {

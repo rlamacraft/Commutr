@@ -6,12 +6,13 @@
   "dependencies": {
     "angular": "^1.5.7",
     "angular-route": "^1.5.7",
-    "bcrypt-nodejs" : "latest",
+    "bcrypt-nodejs": "latest",
     "body-parser": "^1.15.2",
-    "bootstrap": "^3.3.6",
+    "bootstrap": "4.0.0-alpha.5",
     "cookie-parser": "^1.4.3",
     "express": "^4.14.0",
     "express-session": "^1.14.0",
+    "flexbox": "0.0.3",
     "font-awesome": "^4.6.3",
     "jquery": "^3.0.0",
     "jsdom": "^9.4.0",
@@ -26,6 +27,7 @@
   },
   "devDependencies": {},
   "scripts": {
+    "build-js": "browserify ./public/js/index.js ./public/js/app-config.js ./public/js/logger.js ./public/js/home-ctrl.js -o ./public/js/bundle.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

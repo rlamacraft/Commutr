@@ -6,6 +6,89 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.13.1/jquery.validate.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
-<div class="text-center" style="padding:50px 0" ng-controller="homeController">
-    <button type="submit" class="login-register-button" ng-click="regionSelector('EC4R 3AB')"><i class="fa fa-chevron-right"></i></button>
+<div>
+    <div class="banner">
+        <div class="banner-title">Commute Calculator</div>
+    </div>
+
+    <div class="wrapper">
+
+        <div class="info-wrapper">
+
+            <div class="info-header">
+                Housemate Info
+            </div>
+
+            <div class="housemate-info">
+                <div class="housemate-form">
+
+                    <div ng-repeat="housemate in housemates" class="form-group housemate-entry">
+                        <h3>
+                            <label style="text-align: center">
+                                Housemate {{housemates.indexOf(housemate) + 1}}
+                            </label>
+                        </h3>
+                        <div class="input-group">
+                            <span class="input-group-addon">Commute To...</span>
+                            <input type="text" class="form-control" placeholder="Postcode"
+                                   aria-describedby="basic-addon1" ng-model="housemate.commuteTo">
+                        </div>
+                        <div style="padding-top: 10px" class="input-group">
+                            <span class="input-group-addon">Budget</span>
+                            <input type="text" class="form-control" aria-label="Budget Per Person p/m"
+                                   ng-model="housemate.budget">
+                            <span class="input-group-addon">£ / Month</span>
+                        </div>
+
+                    </div>
+                </div>
+
+                <button class="btn btn-secondary" ng-click="addHousemate()" type="button">Add Housemate</button>
+                <button class="btn btn-secondary" ng-click="removeHousemate()" type="button">Remove Housemate</button>
+
+            </div>
+        </div>
+
+        <div class="info-wrapper">
+
+            <div class="info-header">
+                Property Info
+            </div>
+
+            <div class="property-info">
+                <div class="form-group">
+                    <label>What is your maximum commute?</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Max Commute"
+                               aria-describedby="basic-addon2" ng-model="maxCommute">
+                        <span class="input-group-addon">mins each way</span>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-danger btn-find-place">Where should we live?</button>
+            </div>
+        </div>
+
+        <div class="info-wrapper">
+
+            <div class="info-header">
+                Search Restaurants - Just Eat
+            </div>
+
+            <div class="property-info">
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon">Postcode</span>
+                        <input type="text" class="form-control" placeholder="Max Commute"
+                               aria-describedby="basic-addon2" ng-model="restaurantPostcode">
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">Cuisine type</span>
+                        <input type="text" class="form-control" placeholder="Max Commute"
+                               aria-describedby="basic-addon2" ng-model="restaurantCuisine">
+                    </div>
+                </div>
+                <button type="button" class="btn btn-danger btn-find-place" ng-click="searchRestaurants()">Nom Nom Search</button>
+            </div>
+        </div>
+    </div>
 </div>
