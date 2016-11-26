@@ -82,7 +82,7 @@ angular
             };
 
             $http(req).then(response => {
-                concole.log(response.data);
+                console.log(response.data);
             });
         };
     }]);
