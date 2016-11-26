@@ -1,0 +1,1 @@
+browserify index.js app-config.js logger.js home-ctrl.js -o bundle.js
