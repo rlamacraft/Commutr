@@ -72,11 +72,11 @@ angular
         $scope.searchRestaurants = function () {
             const req = {
                 method: 'GET',
-                url: 'http://public.je-apis.com:80/restaurants/v3?q=SW170EG&c=indian&name=',
+                url: 'http://public.je-apis.com:80/restaurants/v3?q=' + $scope.restaurantPostcode + '&c=&name=',
                 header: {
                     'Content-Type': 'application/json',
                     'Accept-Tenant': 'uk',
-                    'Accept-Language': 'en-GB',
+                    'Accept-Version': 'en-GB',
                     'Authorization': 'Basic VGVjaFRlc3RBUEk6dXNlcjI='
                 }
             };
