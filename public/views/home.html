@@ -6,7 +6,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.13.1/jquery.validate.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
-<div>
+<div id="outer">
     <div class="banner">
         <div class="banner-title">Commute Calculator</div>
     </div>
@@ -21,6 +21,15 @@
 
             <div class="housemate-info">
                 <div class="housemate-form">
+
+                  <div class="button-group">
+                    <div>
+                      <button class="btn btn-secondary" ng-click="addHousemate()" type="button">Add Housemate</button>
+                      <button class="btn btn-secondary" ng-click="removeHousemate()" type="button">Remove Housemate</button>
+                      </div>
+
+                    <button type="button" class="btn btn-danger" ng-click="getAreaToLiveIn('EC4R3AB')">Where should we live?</button>
+                  </div>
 
                     <div ng-repeat="housemate in housemates" class="form-group housemate-entry">
                         <h3>
@@ -43,12 +52,10 @@
                     </div>
                 </div>
 
-                <button class="btn btn-secondary" ng-click="addHousemate()" type="button">Add Housemate</button>
-                <button class="btn btn-secondary" ng-click="removeHousemate()" type="button">Remove Housemate</button>
-
             </div>
         </div>
 
+        <!--
         <div class="info-wrapper">
 
             <div class="info-header">
@@ -84,6 +91,10 @@
                 </div>
                 <button type="button" class="btn btn-danger btn-find-place" ng-click="searchRestaurants()">Nom Nom Search</button>
             </div>
-        </div>
+        </div> -->
+    </div>
+
+    <div class="collapse result-wrapper">
+      LEWIS IS THE BEST
     </div>
 </div>
