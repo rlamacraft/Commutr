@@ -56,80 +56,97 @@ angular
           return(bestJourneyTime);
         }
 
-        $scope.areaSelector = function areaSelector(commute_location_postcode, postcode_district) {
-          const district_sizes = {
-            "SW" : 20,
-            "SE" : 28,
-            "E"  : 20,
-            "N"  : 22,
-            "NW" : 11,
-            "W"  : 14
-          };
+        $scope.getAreaToLiveIn = function(commutePostcode) {
+          console.log("Getting recommended postcode area...");
+          regionSelector(commutePostcode).then(function(region) {
+            areaSelector(commutePostcode, region).then(function(area) {
+              console.log(area);
+            }, function(err) {
+              console.error(err)
+            });
+          }, function(err) {
+            console.error(err);
+          })
+        }
 
-          let bestTravelTime = undefined;
-          let bestTravelTimePostcodeArea = "";
-          let returnedRequests = 0;
+        let areaSelector = function areaSelector(commute_location_postcode, postcode_district) {
+          return new Promise(function(resolve, reject) {
+            const district_sizes = {
+              "SW" : 20,
+              "SE" : 28,
+              "E"  : 20,
+              "N"  : 22,
+              "NW" : 11,
+              "W"  : 14
+            };
 
-          for(let eachArea = 1; eachArea < district_sizes[postcode_district] + 1; ++eachArea) {
-            const postcodeAreaName = postcode_district + eachArea;
-            const GoogleUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${postcodeAreaName},London`;
-            const travelTime = $http.get(GoogleUrl).then(response => {
-              const lat = response.data.results[0].geometry.location.lat;
-              const long = response.data.results[0].geometry.location.lng;
-              const travelTime = $http.get(TFL_URL + `${commute_location_postcode}/to/${lat},${long}`).then(response => {
-                const journeys = response.data.journeys
+            let bestTravelTime = undefined;
+            let bestTravelTimePostcodeArea = "";
+            let returnedRequests = 0;
+
+            for(let eachArea = 1; eachArea < district_sizes[postcode_district] + 1; ++eachArea) {
+              const postcodeAreaName = postcode_district + eachArea;
+              const GoogleUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${postcodeAreaName},London`;
+              const travelTime = $http.get(GoogleUrl).then(response => {
+                const lat = response.data.results[0].geometry.location.lat;
+                const long = response.data.results[0].geometry.location.lng;
+                const travelTime = $http.get(TFL_URL + `${commute_location_postcode}/to/${lat},${long}`).then(response => {
+                  const journeys = response.data.journeys
+                  const bestJourneyTime = journeyWithShortestDuration(journeys);
+
+                  // if this is the best travel time for all the regions seen yet, then keep
+                  if (typeof(bestTravelTime) === "undefined" || bestTravelTime > bestJourneyTime) {
+                    bestTravelTime = bestJourneyTime;
+                    bestTravelTimePostcodeArea = postcodeAreaName;
+                  }
+
+                  // if all requests have come back, return the best
+                  if(returnedRequests == district_sizes[postcode_district] - 1) {
+                    resolve(bestTravelTimePostcodeArea);
+                  } else {
+                    ++returnedRequests;
+                  }
+                }, error => {
+                  ++returnedRequests;
+                });
+              });
+            }
+          });
+        }
+
+        let regionSelector = function(commute_location_postcode) {
+          return new Promise(function(resolve, reject) {
+            const region_postcodes = {
+              "SW47SH"  : "SW",
+              "SE167EE" : "SE",
+              "E20ET"   : "E",
+              "N79BA"   : "N",
+              "NW36HY"  : "NW",
+              "W24DU"   : "W"
+            };
+
+            let bestTravelTime = undefined;
+            let bestTravelTimePostcode = "";
+            let returnedRequests = 0;
+
+            Object.keys(region_postcodes).forEach(eachPostcode => {
+              const travelTime = $http.get(TFL_URL + commute_location_postcode + "/to/" + eachPostcode).then(response => {
+                const journeys = response.data.journeys;
                 const bestJourneyTime = journeyWithShortestDuration(journeys);
 
                 // if this is the best travel time for all the regions seen yet, then keep
                 if (typeof(bestTravelTime) === "undefined" || bestTravelTime > bestJourneyTime) {
                   bestTravelTime = bestJourneyTime;
-                  bestTravelTimePostcodeArea = postcodeAreaName;
+                  bestTravelTimePostcode = eachPostcode;
                 }
 
                 // if all requests have come back, return the best
-                if(returnedRequests == district_sizes[postcode_district] - 1) {
-                  console.log(bestTravelTimePostcodeArea);
+                if(returnedRequests == Object.keys(region_postcodes).length - 1) {
+                  resolve(region_postcodes[bestTravelTimePostcode]);
                 } else {
                   ++returnedRequests;
                 }
-              }, error => {
-                ++returnedRequests;
               });
-            });
-          }
-        }
-
-        $scope.regionSelector = function(commute_location_postcode) {
-          const region_postcodes = {
-            "SW47SH"  : "SW",
-            "SE167EE" : "SE",
-            "E20ET"   : "E",
-            "N79BA"   : "N",
-            "NW36HY"  : "NW",
-            "W24DU"   : "W"
-          };
-
-          let bestTravelTime = undefined;
-          let bestTravelTimePostcode = "";
-          let returnedRequests = 0;
-
-          Object.keys(region_postcodes).forEach(eachPostcode => {
-            const travelTime = $http.get(TFL_URL + commute_location_postcode + "/to/" + eachPostcode).then(response => {
-              const journeys = response.data.journeys;
-              const bestJourneyTime = journeyWithShortestDuration(journeys);
-
-              // if this is the best travel time for all the regions seen yet, then keep
-              if (typeof(bestTravelTime) === "undefined" || bestTravelTime > bestJourneyTime) {
-                bestTravelTime = bestJourneyTime;
-                bestTravelTimePostcode = eachPostcode;
-              }
-
-              // if all requests have come back, return the best
-              if(returnedRequests == Object.keys(region_postcodes).length - 1) {
-                console.log(region_postcodes[bestTravelTimePostcode]);
-              } else {
-                ++returnedRequests;
-              }
             });
           });
       };
