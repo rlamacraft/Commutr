@@ -63,13 +63,54 @@ angular
           console.log("Getting recommended postcode area...");
           regionSelector(commutePostcode).then(function(region) {
             areaSelector(commutePostcode, region).then(function(area) {
-              console.log(area);
+              stationsInPostcodeArea(area).then(function(unsortedStations) {
+                sortStationsByTravelTime(unsortedStations, commutePostcode).then(function(sortedStations) {
+                  console.log(sortedStations);
+                }, function(err) {
+                  console.error(err);
+                })
+              }, function(err) {
+                console.error(error);
+              })
             }, function(err) {
               console.error(err)
             });
           }, function(err) {
             console.error(err);
           })
+        }
+
+        const sortStationsByTravelTime = function(stations, postcode) {
+          return new Promise(function(resolve, reject) {
+            stations.forEach(eachStation => {
+              $http.get(TFL_URL + postcode + "/to/" + eachStation.lat + "," + eachStation.lon).then(response => {
+                eachStation.duration = response.data.journeys[0].duration;
+              });
+            });
+            resolve(stations);
+          });
+        }
+
+        const stationsInPostcodeArea = function(postcodeArea) {
+          return new Promise(function(resolve, reject) {
+            const GoogleUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${postcodeArea},London`;
+            const travelTime = $http.get(GoogleUrl).then(response => {
+              const lat = response.data.results[0].geometry.location.lat;
+              const long = response.data.results[0].geometry.location.lng;
+              const tubeStationRadius = 1000; // 1 kilometer
+              $http.get(`https://api.tfl.gov.uk/StopPoint?lat=${lat}&lon=${long}&stopTypes=NaptanMetroStation&radius=${tubeStationRadius}&useStopPointHierarchy=True&returnLines=True`).then(response => {
+                const allTubeStations = response.data.stopPoints;
+                let allTubeStationDetails = [];
+
+                allTubeStations.forEach(eachStation => {
+                  console.log(eachStation.commonName);
+                  allTubeStationDetails.push({"name": eachStation.commonName, "lat": eachStation.lat, "lon": eachStation.lon});
+                })
+
+                resolve(allTubeStationDetails);
+              });
+            });
+          });
         }
 
         let areaSelector = function areaSelector(commute_location_postcode, postcode_district) {
