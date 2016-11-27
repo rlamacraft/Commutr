@@ -92,7 +92,6 @@ angular
           }
         }
 
-<<<<<<< Updated upstream
         const sortByDuration = function(stations) {
           function compare(a,b) {
             if (a.duration < b.duration)
@@ -107,11 +106,6 @@ angular
         }
 
         const getStationsTravelTime = function(stations, postcode) {
-=======
-
-
-        const sortStationsByTravelTime = function(stations, postcode) {
->>>>>>> Stashed changes
           return new Promise(function(resolve, reject) {
             stations.forEach(eachStation => {
               $http.get(TFL_URL + postcode + "/to/" + eachStation.lat + "," + eachStation.lon).then(response => {
