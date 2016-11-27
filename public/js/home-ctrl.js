@@ -62,10 +62,13 @@ angular
         $scope.getAreaToLiveIn = function(commutePostcode) {
           console.log("Getting recommended postcode area...");
           regionSelector(commutePostcode).then(function(region) {
+            console.log(region);
             areaSelector(commutePostcode, region).then(function(area) {
-              stationsInPostcodeArea(area).then(function(unsortedStations) {
-                sortStationsByTravelTime(unsortedStations, commutePostcode).then(function(sortedStations) {
-                  console.log(sortedStations);
+              console.log(area);
+              stationsInPostcodeArea(area).then(function(stations) {
+                console.log(stations);
+                getStationsTravelTime(stations, commutePostcode).then(function(stationsWithDuration) {
+                  console.log(sortByDuration(stationsWithDuration));
                 }, function(err) {
                   console.error(err);
                 })
@@ -80,7 +83,20 @@ angular
           })
         }
 
-        const sortStationsByTravelTime = function(stations, postcode) {
+        const sortByDuration = function(stations) {
+          function compare(a,b) {
+            if (a.duration < b.duration)
+              return -1;
+            if (a.duration > b.duration)
+              return 1;
+            return 0;
+          }
+
+          stations.sort(compare);
+          return(stations);
+        }
+
+        const getStationsTravelTime = function(stations, postcode) {
           return new Promise(function(resolve, reject) {
             stations.forEach(eachStation => {
               $http.get(TFL_URL + postcode + "/to/" + eachStation.lat + "," + eachStation.lon).then(response => {
