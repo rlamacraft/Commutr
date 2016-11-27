@@ -7,6 +7,7 @@ angular
     .module('comutr')
     .controller('homeController', ['$scope', '$http', '$location', function ($scope, $http, $location) {
 
+        $scope.wrapperDisabled = false;
         $scope.housemates = [{}];
         $scope.restaurantPostcode = "";
         $scope.restaurantCuisine = "";
@@ -60,6 +61,10 @@ angular
         }
 
         $scope.getAreaToLiveIn = function(commutePostcode) {
+          // Lewis' CSS STUFF!!!
+          $scope.wrapperDisabled = true;
+
+          // Rob's stuff that actually does the work lel
           console.log("Getting recommended postcode area...");
           regionSelector(commutePostcode).then(function(region) {
             console.log(region);
@@ -81,8 +86,13 @@ angular
           }, function(err) {
             console.error(err);
           })
+
+          function error(err){
+            console.error(err);
+          }
         }
 
+<<<<<<< Updated upstream
         const sortByDuration = function(stations) {
           function compare(a,b) {
             if (a.duration < b.duration)
@@ -97,6 +107,11 @@ angular
         }
 
         const getStationsTravelTime = function(stations, postcode) {
+=======
+
+
+        const sortStationsByTravelTime = function(stations, postcode) {
+>>>>>>> Stashed changes
           return new Promise(function(resolve, reject) {
             stations.forEach(eachStation => {
               $http.get(TFL_URL + postcode + "/to/" + eachStation.lat + "," + eachStation.lon).then(response => {

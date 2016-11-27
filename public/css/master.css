@@ -2,6 +2,15 @@
 
 }
 
+@media(max-width:1160px) {
+  .wrapper {
+    padding: 50px 10% 0 10% !important;
+  }
+  .result-wrapper {
+    padding: 0px 10% 0 10% !important;
+  }
+}
+
 body {
     background-color: #e74c3c;
 }
@@ -11,6 +20,7 @@ body {
   display: flex;
   flex-direction: column;
   height: 100%;
+  padding-bottom: 50px;
 }
 
 h3 {
@@ -39,31 +49,26 @@ h3 {
 
 /* Internal Wrapper CSS */
 .wrapper {
-    display: flex;
-    flex-direction: row;
-    flex-grow: 1;
-    justify-content: space-around;
     padding: 50px 25% 0 25%;
 }
 
 .result-wrapper {
-    flex-grow: 1;
-    flex-basis: auto;
-    transition: all 2s;
-    overflow: hidden;
+    transition: all 2s cubic-bezier(0.18, 0.89, 0.29, 1.21);
+    padding: 0 25% 0 25%;
+    height: 500px;
+    overflow: auto;
 }
 
-.collapse {
-    flex-grow: 0.001;
+.invisible {
+  height: 0px;
+  overflow: hidden;
 }
 
 /********/
 
 /* CSS for the info section in the middle of the window */
 .info-wrapper {
-    margin: 20px;
-    flex-grow: 1;
-    width: 100%;
+
 }
 
 .info-header {
@@ -71,10 +76,14 @@ h3 {
     color: white;
     font-size: 25px;
     padding: 7.5px 15px;
-    border-radius: 7.5px 7.5px 0 0;
+    border-radius: 5px 5px 0 0;
 }
 
-.housemate-info, .property-info, .retaurant-info {
+.result-wrapper .info-header {
+  border-radius: 0px;
+}
+
+.housemate-info, .property-info, .restaurant-info {
     background-color: white;
     padding: 15px 30px;
     border-radius: 0 0 7.5px 7.5px;
@@ -91,10 +100,24 @@ h3 {
 
 .button-group button{
   margin: 15px 5px;
+  transition: all .3s ease;
+}
+
+.button-group button:hover {
+  box-shadow: 1px 1px 3px rgba(100,100,100,0.3);
 }
 
 .btn-danger{
   margin: 10px 5px !important;
+}
+
+.property-row {
+  display: flex;
+}
+
+.property-card {
+  width: 30%;
+  font-size: 1em;
 }
 
 /********/
