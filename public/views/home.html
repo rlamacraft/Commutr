@@ -6,7 +6,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.13.1/jquery.validate.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
-<div>
+<div id="outer">
     <div class="banner">
         <div class="banner-title">Commute Calculator</div>
     </div>
@@ -21,6 +21,15 @@
 
             <div class="housemate-info">
                 <div class="housemate-form">
+
+                  <div class="button-group">
+                    <div>
+                      <button class="btn btn-secondary" ng-click="addHousemate()" type="button">Add Housemate</button>
+                      <button class="btn btn-secondary" ng-click="removeHousemate()" type="button">Remove Housemate</button>
+                      </div>
+
+                    <button type="button" class="btn btn-danger" ng-click="getAreaToLiveIn('W1F9EP')">Where should we live?</button>
+                  </div>
 
                     <div ng-repeat="housemate in housemates" class="form-group housemate-entry">
                         <h3>
@@ -43,12 +52,10 @@
                     </div>
                 </div>
 
-                <button class="btn btn-secondary" ng-click="addHousemate()" type="button">Add Housemate</button>
-                <button class="btn btn-secondary" ng-click="removeHousemate()" type="button">Remove Housemate</button>
-
             </div>
         </div>
 
+        <!--
         <div class="info-wrapper">
 
             <div class="info-header">
@@ -64,7 +71,7 @@
                         <span class="input-group-addon">mins each way</span>
                     </div>
                 </div>
-                <button type="button" class="btn btn-danger btn-find-place" ng-click="getAreaToLiveIn('WC1X8QP')">Where should we live?</button>
+                <button type="button" class="btn btn-danger btn-find-place" ng-click="getAreaToLiveIn('EC4A2BE')">Where should we live?</button>
             </div>
         </div>
 
@@ -81,14 +88,13 @@
                         <input type="text" class="form-control" placeholder="Max Commute"
                                aria-describedby="basic-addon2" ng-model="restaurantPostcode">
                     </div>
-                    <div class="input-group">
-                        <span class="input-group-addon">Cuisine type</span>
-                        <input type="text" class="form-control" placeholder="Max Commute"
-                               aria-describedby="basic-addon2" ng-model="restaurantCuisine">
-                    </div>
                 </div>
                 <button type="button" class="btn btn-danger btn-find-place" ng-click="searchRestaurants()">Nom Nom Search</button>
             </div>
-        </div>
+        </div> -->
+    </div>
+
+    <div class="collapse result-wrapper">
+      LEWIS IS THE BEST
     </div>
 </div>

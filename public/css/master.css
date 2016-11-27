@@ -6,6 +6,19 @@ body {
     background-color: #e74c3c;
 }
 
+.outer{
+  flex-basis: auto;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    display: inline-block;
+}
+
 /* Top Banner CSS */
 .banner {
     background-color: #c0392b;
@@ -14,6 +27,7 @@ body {
 }
 
 .banner-title {
+    display:inline-block;
     background-color: #912c21;
     color: white;
     font-size: 20px;
@@ -27,8 +41,20 @@ body {
 .wrapper {
     display: flex;
     flex-direction: row;
+    flex-grow: 1;
     justify-content: space-around;
-    padding: 50px 5% 0 5%;
+    padding: 50px 25% 0 25%;
+}
+
+.result-wrapper {
+    flex-grow: 1;
+    flex-basis: auto;
+    transition: all 2s;
+    overflow: hidden;
+}
+
+.collapse {
+    flex-grow: 0.001;
 }
 
 /********/
@@ -36,26 +62,39 @@ body {
 /* CSS for the info section in the middle of the window */
 .info-wrapper {
     margin: 20px;
-
     flex-grow: 1;
+    width: 100%;
 }
 
 .info-header {
     background-color: #c0392b;
     color: white;
-    font-size: 17.5px;
+    font-size: 25px;
     padding: 7.5px 15px;
     border-radius: 7.5px 7.5px 0 0;
 }
 
 .housemate-info, .property-info, .retaurant-info {
     background-color: white;
-    padding: 15px;
+    padding: 15px 30px;
     border-radius: 0 0 7.5px 7.5px;
 }
 
 .btn-find-place {
     padding: 15px;
+}
+
+.button-group{
+  display: flex;
+  justify-content: space-between;
+}
+
+.button-group button{
+  margin: 15px 5px;
+}
+
+.btn-danger{
+  margin: 10px 5px !important;
 }
 
 /********/
