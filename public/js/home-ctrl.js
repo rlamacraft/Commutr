@@ -93,16 +93,9 @@ angular
         }
 
         const sortByDuration = function(stations) {
-          function compare(a,b) {
-            if (a.duration < b.duration)
-              return -1;
-            if (a.duration > b.duration)
-              return 1;
-            return 0;
-          }
-
-          stations.sort(compare);
-          return(stations);
+          stations.forEach(station =>{
+              console.log(stations["0"].duration);
+            })
         }
 
         const getStationsTravelTime = function(stations, postcode) {
