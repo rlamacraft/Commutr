@@ -146,7 +146,7 @@ angular
             });
         }
 
-        $scope.getAverageDistanceFromAllAreas = function (commutePostcode) {
+        $scope.getOptimalArea = function (commutePostcode) {
             console.log("Getting recommended postcode area...");
             hashAllJourneysByDistrict(commutePostcode).then(() => {
                 console.log("Average for commutes from all zones to " + commutePostcode + " is " + averageHashTableJourneyTimes());
@@ -164,6 +164,60 @@ angular
                 });
                 postcodeAreaHashTable[postCodeAreaName] = sum / arrSize;
                 console.log("Average for " + postCodeAreaName + ": " + postcodeAreaHashTable[postCodeAreaName]);
+            });
+        }
+
+        $scope.getAreaToLiveIn = function(commutePostcode) {
+            // Lewis' CSS STUFF!!!
+            $scope.wrapperDisabled = true;
+
+            // Rob's stuff that actually does the work lel
+            console.log("Getting recommended postcode area...");
+            regionSelector(commutePostcode).then(function(region) {
+                console.log(region);
+                areaSelector(commutePostcode, region).then(function(area) {
+                    console.log(area);
+                    stationsInPostcodeArea(area).then(function(stations) {
+                        console.log(stations);
+                        getStationsTravelTime(stations, commutePostcode).then(function(stationsWithDuration) {
+                            console.log(sortByDuration(stationsWithDuration));
+                        }, function(err) {
+                            console.error(err);
+                        })
+                    }, function(err) {
+                        console.error(error);
+                    })
+                }, function(err) {
+                    console.error(err)
+                });
+            }, function(err) {
+                console.error(err);
+            })
+
+            function error(err){
+                console.error(err);
+            }
+        };
+
+        const stationsInPostcodeArea = function(postcodeArea) {
+            return new Promise(function(resolve, reject) {
+                const GoogleUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${postcodeArea},London`;
+                const travelTime = $http.get(GoogleUrl).then(response => {
+                    const lat = response.data.results[0].geometry.location.lat;
+                    const long = response.data.results[0].geometry.location.lng;
+                    const tubeStationRadius = 1000; // 1 kilometer
+                    $http.get(`https://api.tfl.gov.uk/StopPoint?lat=${lat}&lon=${long}&stopTypes=NaptanMetroStation&radius=${tubeStationRadius}&useStopPointHierarchy=True&returnLines=True`).then(response => {
+                        const allTubeStations = response.data.stopPoints;
+                        let allTubeStationDetails = [];
+
+                        allTubeStations.forEach(eachStation => {
+                            console.log(eachStation.commonName);
+                            allTubeStationDetails.push({"name": eachStation.commonName, "lat": eachStation.lat, "lon": eachStation.lon});
+                        })
+
+                        resolve(allTubeStationDetails);
+                    });
+                });
             });
         }
 

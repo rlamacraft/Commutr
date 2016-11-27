@@ -91,6 +91,19 @@ h3 {
 
 .collapse {
     flex-grow: 0.001;
+    padding: 50px 25% 0 25%;
+}
+
+.result-wrapper {
+    transition: all 2s cubic-bezier(0.18, 0.89, 0.29, 1.21);
+    padding: 0 25% 0 25%;
+    height: 500px;
+    overflow: auto;
+}
+
+.invisible {
+  height: 0px;
+  overflow: hidden;
 }
 
 /********/
