@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+       #map {
+        height: 500px;
+        width: 800px;
+       }
+    </style>
+  </head>
+  <body>
+    <h3>My Google Maps Demo</h3>
+    <div id="map"></div>
+    <script>
+      function initMap() {
+        let geocoder = new google.maps.Geocoder;
+
+        let centralLondon = {lat: 51.510666, lng: -0.118103};
+
+        var recommendedLocation = "E14 7GJ";
+
+        var commuteDestinations = ["WC2R 2LS","W1F 9EP","EC1M 5SA"];
+
+        let map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 12,
+          center: centralLondon
+        });
+
+        getLngLat(recommendedLocation).then(function(rec){
+          commuteDestinations.forEach(commute =>{
+            getLngLat(commute).then(function(dest){
+
+              var line = new google.maps.Polyline({
+                path: [
+                  rec,
+                  dest
+                ],
+                strokeColor: "#FF0000",
+                strokeOpacity: 1.0,
+                strokeWeight: 2.5,
+                map: map
+              });
+            });
+          });
+        });
+
+        function getLngLat(address){
+          return new Promise(function(resolve, reject){
+            geocoder.geocode( { 'address': address}, function(results, status) {
+              if (status == google.maps.GeocoderStatus.OK) {
+                resolve(results[0].geometry.location);
+              } else {
+                alert('Geocode was not successful for the following reason: ' + status);
+              }
+            });
+          });
+        }
+
+      }
+
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVE9-W0y5MaIzwmC7dkbam4Us94y92krw&callback=initMap">
+    </script>
+  </body>
+</html>

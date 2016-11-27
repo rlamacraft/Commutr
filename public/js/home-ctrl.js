@@ -30,12 +30,15 @@ angular
         $scope.searchRestaurants = function () {
             const req = {
                 method: 'GET',
-                url: 'http://public.je-apis.com:80/restaurants/v3?q=' + $scope.restaurantPostcode + '&c=&name=',
+                url: 'http://public.je-apis.com:80/restaurants/v3?q=' + $scope.restaurantPostcode + 'c=&name=',
                 header: {
+                    'Accept': 'application/json',
                     'Content-Type': 'application/json',
                     'Accept-Tenant': 'uk',
                     'Accept-Version': 'en-GB',
-                    'Authorization': 'Basic VGVjaFRlc3RBUEk6dXNlcjI='
+                    'Authorization': 'Basic VGVjaFRlc3RBUEk6dXNlcjI=',
+                    'Connection': 'keep-alive',
+                    'Host': 'public.je-apis.com'
                 }
             };
 
