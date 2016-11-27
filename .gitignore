@@ -1,1 +1,10 @@
 node_modules
+*.iml
+.idea/jsLibraryMappings.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
+.idea/workspace.xml
+data/db/mongo-config.yaml
+data/models/user.js
+public/js/bundle.js
